@@ -7,7 +7,7 @@ import json
 import requests
 from typing import Dict, List, Any, Tuple
 import io
-import os
+
 
 # Set page configuration
 st.set_page_config(
