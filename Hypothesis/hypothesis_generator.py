@@ -24,7 +24,8 @@ st.write("Upload your CSV file to get a summary and potential research hypothese
 # Function to call Gemini API
 def call_gemini_api(prompt: str, api_key: str) -> str:
     """Call the Gemini API with the given prompt."""
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
+    # url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}" #Gemini 2.0 Flash
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17:generateContent?key={api_key}" #Gemini New Release 2.5
     headers = {'Content-Type': 'application/json'}
     data = {
         "contents": [{
