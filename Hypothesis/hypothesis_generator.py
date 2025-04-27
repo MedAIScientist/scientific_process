@@ -7,7 +7,9 @@ import json
 import requests
 from typing import Dict, List, Any, Tuple
 import io
-
+import subprocess
+import os
+import threading
 
 # Set page configuration
 st.set_page_config(
@@ -481,3 +483,53 @@ else:
     - Only statistical summaries are sent to the Gemini API, not your raw data
     - Your API key is not stored and is only used for the current session
     """)
+
+
+# def launch_deep_research_repo():
+#     # Get the absolute path to the other app.py
+#     current_dir = os.path.dirname(os.path.abspath(__file__))
+#     other_app_path = os.path.abspath(os.path.join(current_dir, "..", "..", "local-deep-research", "app.py"))
+#
+#     # Check if the other app exists
+#     if os.path.exists(other_app_path):
+#         try:
+#             # Launch the other app using subprocess
+#             subprocess.Popen(["python", other_app_path])
+#             return True, f"Successfully launched app at {other_app_path}"
+#         except Exception as e:
+#             return False, f"Error launching app: {str(e)}"
+#     else:
+#         return False, f"Could not find app at: {other_app_path}"
+
+import os
+import subprocess
+
+def launch_deep_research_repo():
+    # Get the absolute path to the other repo
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    other_repo_dir = os.path.abspath(os.path.join(current_dir, "..", "..", "local-deep-research"))  # Adjusted your repo name here
+
+    # Path to the app.py inside other_repo_dir
+    app_path = os.path.join(other_repo_dir, "app.py")
+
+    # Check if the app.py exists
+    if os.path.exists(app_path):
+        try:
+            # Launch a new terminal process: cd into repo and run python app.py
+            subprocess.Popen(f'cd "{other_repo_dir}" && python app.py', shell=True)
+            return True, f"Successfully launched app at {app_path}"
+        except Exception as e:
+            return False, f"Error launching app: {str(e)}"
+    else:
+        return False, f"Could not find app at: {app_path}"
+
+
+
+with st.sidebar:
+    st.write("## Additional Tools")
+    if st.button("Launch Deep Research App"):
+        success, message = launch_deep_research_repo()
+        if success:
+            st.success(message)
+        else:
+            st.error(message)
