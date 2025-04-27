@@ -272,7 +272,8 @@ if uploaded_file is not None and api_key:
         df = pd.read_csv(uploaded_file)
 
         # Create tabs for different sections
-        tab1, tab2, tab3 = st.tabs(["Data Preview", "Statistical Analysis", "Hypotheses"])
+        #tab1, tab2, tab3 = st.tabs(["Data Preview", "Statistical Analysis", "Hypotheses"])
+        tab1, tab2, tab3, tab4 = st.tabs(["Data Preview", "Statistical Analysis", "Hypotheses", "Methods Selection"])
 
         with tab1:
             st.subheader("Data Preview")
@@ -362,6 +363,23 @@ if uploaded_file is not None and api_key:
                             col_name = key.replace("distribution_", "")
                             st.image(visualizations[key], caption=f"Distribution of {col_name}")
 
+        # with tab3:
+        #     # Generate hypotheses using Gemini
+        #     st.subheader("Data-Driven Hypotheses")
+        #
+        #     with st.spinner("Generating hypotheses with Gemini..."):
+        #         # Create the prompt
+        #         prompt = create_gemini_prompt(df, analysis)
+        #
+        #         # Call Gemini API
+        #         with st.expander("View prompt sent to Gemini"):
+        #             st.text(prompt)
+        #
+        #         gemini_response = call_gemini_api(prompt, api_key)
+        #
+        #         # Display the response
+        #         st.markdown(gemini_response)
+
         with tab3:
             # Generate hypotheses using Gemini
             st.subheader("Data-Driven Hypotheses")
@@ -378,6 +396,65 @@ if uploaded_file is not None and api_key:
 
                 # Display the response
                 st.markdown(gemini_response)
+
+                # Process the hypotheses using the pipeline
+                from hypothesis_pipeline import integrate_with_streamlit
+
+                hypothesis_data = integrate_with_streamlit(gemini_response)
+
+                if hypothesis_data["status"] == "success":
+                    # Store the structured data in session state for use in other tabs
+                    st.session_state.hypothesis_data = hypothesis_data
+
+                    # Add option to download the hypotheses as JSON
+                    if st.button("Download Hypotheses as JSON"):
+                        from hypothesis_pipeline import HypothesisPipeline
+
+                        pipeline = HypothesisPipeline()
+                        pipeline.extract_from_gemini_response(gemini_response)
+                        pipeline.export_to_json("hypotheses_output.json")
+                        st.success("Hypotheses saved to hypotheses_output.json")
+
+                    # Show structured data in expandable section
+                    with st.expander("View structured hypothesis data"):
+                        st.json(hypothesis_data)
+
+        with tab4:
+            st.subheader("Statistical Methods Selection")
+
+            # Check if we have hypothesis data
+            if 'hypothesis_data' not in st.session_state:
+                st.info("Generate hypotheses first in the Hypotheses tab.")
+            else:
+                st.write("Based on your hypotheses, here are recommended statistical methods:")
+
+                # Display hypotheses and let users select methods for each
+                for i, hyp_data in enumerate(st.session_state.hypothesis_data["hypotheses"]):
+                    st.write(f"### Hypothesis {i + 1}")
+                    st.write(hyp_data["hypothesis"])
+
+                    # Create method selection options
+                    st.write("#### Select appropriate statistical methods:")
+
+                    # These would be dynamically generated based on the hypothesis
+                    # For now we'll use some common options as an example
+                    methods = st.multiselect(
+                        f"Methods for Hypothesis {i + 1}",
+                        ["t-test", "ANOVA", "Regression Analysis", "Chi-square", "Correlation Analysis"],
+                        key=f"methods_{i}"
+                    )
+
+                    # Store selected methods
+                    if 'selected_methods' not in st.session_state:
+                        st.session_state.selected_methods = {}
+
+                    st.session_state.selected_methods[i] = methods
+
+                # Button to proceed with analysis
+                if st.button("Run Statistical Analysis"):
+                    st.info("This would run the selected statistical methods on your data.")
+                    # Here you would call functions to perform the actual analysis
+                    # based on st.session_state.selected_methods
 
     except Exception as e:
         st.error(f"Error processing the CSV file: {str(e)}")
