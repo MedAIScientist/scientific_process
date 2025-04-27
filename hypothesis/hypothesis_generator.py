@@ -13,13 +13,13 @@ import threading
 
 # Set page configuration
 st.set_page_config(
-    page_title="CSV Hypothesis Generator",
+    page_title="CSV hypothesis Generator",
     page_icon="📊",
     layout="wide"
 )
 
 # App title and description
-st.title("CSV Data Analyzer & Hypothesis Generator")
+st.title("CSV Data Analyzer & hypothesis Generator")
 st.write("Upload your CSV file to get a summary and potential research hypotheses")
 
 
@@ -246,15 +246,15 @@ Format your response as follows:
 ### Summary
 [Your summary here]
 
-### Hypothesis 1
+### hypothesis 1
 [Specific hypothesis statement]
 **Rationale:** [Explanation based on the data]
 
-### Hypothesis 2
+### hypothesis 2
 [Specific hypothesis statement]
 **Rationale:** [Explanation based on the data]
 
-### Hypothesis 3
+### hypothesis 3
 [Specific hypothesis statement]
 **Rationale:** [Explanation based on the data]
 """
@@ -432,7 +432,7 @@ if uploaded_file is not None and api_key:
 
                 # Display hypotheses and let users select methods for each
                 for i, hyp_data in enumerate(st.session_state.hypothesis_data["hypotheses"]):
-                    st.write(f"### Hypothesis {i + 1}")
+                    st.write(f"### hypothesis {i + 1}")
                     st.write(hyp_data["hypothesis"])
 
                     # Create method selection options
@@ -441,7 +441,7 @@ if uploaded_file is not None and api_key:
                     # These would be dynamically generated based on the hypothesis
                     # For now we'll use some common options as an example
                     methods = st.multiselect(
-                        f"Methods for Hypothesis {i + 1}",
+                        f"Methods for hypothesis {i + 1}",
                         ["t-test", "ANOVA", "Regression Analysis", "Chi-square", "Correlation Analysis"],
                         key=f"methods_{i}"
                     )

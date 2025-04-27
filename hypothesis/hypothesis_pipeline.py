@@ -31,7 +31,7 @@ class HypothesisPipeline:
                 self.summary = summary_match.group(1).strip()
 
             # Extract hypotheses and rationales
-            hyp_pattern = r'###\s*Hypothesis\s*(\d+)\s*\n(.*?)(?:\*\*Rationale:\*\*|\*\*Rationale\*\*:)(.*?)(?=###|\Z)'
+            hyp_pattern = r'###\s*hypothesis\s*(\d+)\s*\n(.*?)(?:\*\*Rationale:\*\*|\*\*Rationale\*\*:)(.*?)(?=###|\Z)'
             hypotheses_matches = re.findall(hyp_pattern, response_text, re.DOTALL)
 
             self.hypotheses = []
@@ -155,15 +155,15 @@ if __name__ == "__main__":
     ### Summary
     This dataset contains information about customer behavior including demographics, purchase history, and satisfaction ratings across different product categories and time periods.
 
-    ### Hypothesis 1
+    ### hypothesis 1
     Customers with higher income levels show significantly greater satisfaction with premium products compared to budget products.
     **Rationale:** The data shows a strong positive correlation between income level and satisfaction ratings for premium product categories, suggesting that higher-income customers may have different expectations or experiences with premium offerings.
 
-    ### Hypothesis 2
+    ### hypothesis 2
     Seasonal variations significantly impact purchase frequency across all product categories, with distinct patterns for each product type.
     **Rationale:** Looking at the timestamp data and purchase frequency, there appear to be cyclical patterns in buying behavior that differ by product category, indicating potential seasonal effects on consumer preferences.
 
-    ### Hypothesis 3
+    ### hypothesis 3
     Customer age is a stronger predictor of product loyalty than length of customer relationship.
     **Rationale:** The data shows that while both age and customer tenure have positive correlations with repeat purchases, the correlation coefficient is notably stronger for age (0.67) than for relationship length (0.42), suggesting age may be more influential in determining loyalty behaviors.
     """
@@ -178,6 +178,6 @@ if __name__ == "__main__":
     print("Summary:", pipeline.get_summary())
     print("\nHypotheses with Rationales:")
     for i, item in enumerate(pipeline.get_hypotheses_with_rationales()):
-        print(f"\nHypothesis {i + 1}:")
+        print(f"\nhypothesis {i + 1}:")
         print(f"Statement: {item['hypothesis']}")
         print(f"Rationale: {item['rationale']}")
