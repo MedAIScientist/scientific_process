@@ -10,6 +10,13 @@ import io
 import subprocess
 import os
 import threading
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
+import plotly.express as px
+from sklearn.metrics import silhouette_score, silhouette_samples
 
 # Set page configuration
 st.set_page_config(
@@ -274,8 +281,7 @@ if uploaded_file is not None and api_key:
         df = pd.read_csv(uploaded_file)
 
         # Create tabs for different sections
-        #tab1, tab2, tab3 = st.tabs(["Data Preview", "Statistical Analysis", "Hypotheses"])
-        tab1, tab2, tab3, tab4 = st.tabs(["Data Preview", "Statistical Analysis", "Hypotheses", "Methods Selection"])
+        tab1, tab2, tab3, tab4, tab5 = st.tabs(["Data Preview", "Statistical Analysis", "Hypotheses", "Methods Selection", "Data Analysis"])
 
         with tab1:
             st.subheader("Data Preview")
@@ -365,23 +371,6 @@ if uploaded_file is not None and api_key:
                             col_name = key.replace("distribution_", "")
                             st.image(visualizations[key], caption=f"Distribution of {col_name}")
 
-        # with tab3:
-        #     # Generate hypotheses using Gemini
-        #     st.subheader("Data-Driven Hypotheses")
-        #
-        #     with st.spinner("Generating hypotheses with Gemini..."):
-        #         # Create the prompt
-        #         prompt = create_gemini_prompt(df, analysis)
-        #
-        #         # Call Gemini API
-        #         with st.expander("View prompt sent to Gemini"):
-        #             st.text(prompt)
-        #
-        #         gemini_response = call_gemini_api(prompt, api_key)
-        #
-        #         # Display the response
-        #         st.markdown(gemini_response)
-
         with tab3:
             # Generate hypotheses using Gemini
             st.subheader("Data-Driven Hypotheses")
@@ -457,6 +446,102 @@ if uploaded_file is not None and api_key:
                     st.info("This would run the selected statistical methods on your data.")
                     # Here you would call functions to perform the actual analysis
                     # based on st.session_state.selected_methods
+
+        with tab5:
+            st.subheader("Data Analysis (Scikit-Learn)")
+
+            # Select target variable
+            target_col = st.selectbox("Select target column for supervised analysis", df.columns)
+            features = [col for col in df.columns if col != target_col]
+
+            # Encode categorical variables
+            X = df[features].copy()
+            y = df[target_col].copy()
+            for col in X.select_dtypes(include=['object', 'category']).columns:
+                X[col] = LabelEncoder().fit_transform(X[col].astype(str))
+            if y.dtype == 'object' or y.dtype.name == 'category':
+                y = LabelEncoder().fit_transform(y.astype(str))
+
+            # Feature Importance
+            if st.button("Show Feature Importances (Random Forest)"):
+                X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+                model = RandomForestClassifier(n_estimators=100, random_state=42)
+                model.fit(X_train, y_train)
+                importances = model.feature_importances_
+                importance_df = pd.DataFrame({'Feature': features, 'Importance': importances})
+                st.dataframe(importance_df.sort_values('Importance', ascending=False))
+
+            # Clustering
+            st.write("### KMeans Clustering (on first 2 PCA components)")
+            st.info(
+                """
+                **What does this plot show?**  
+                - Each dot is a row (sample) from your dataset, projected onto two new axes (PCA 1 and PCA 2) that capture the most important patterns in your data.  
+                - The color of each dot shows which cluster it belongs to, as determined by the KMeans algorithm.  
+                - The red X's are the centroids (centers) of each cluster.  
+
+                **How to interpret:**  
+                - Dots with the same color are considered similar by the algorithm.  
+                - If you see clear, separate colored regions, your data has distinct groups.  
+                - If the colors are mixed, the groups are less distinct.  
+                - You can use the cluster sizes below to see how many samples are in each group.
+                """
+            )
+            scaler = StandardScaler()
+            X_scaled = scaler.fit_transform(X)
+            pca = PCA(n_components=2)
+            X_pca = pca.fit_transform(X_scaled)
+            n_clusters = st.slider("Number of clusters", 2, 10, 3)
+            kmeans = KMeans(n_clusters=n_clusters, random_state=42)
+            clusters = kmeans.fit_predict(X_pca)
+            centers = kmeans.cluster_centers_
+
+            # Plotly interactive scatter plot with hover tooltips
+            plot_df = pd.DataFrame({
+                'PCA 1': X_pca[:, 0],
+                'PCA 2': X_pca[:, 1],
+                'Cluster': clusters,
+                'Index': df.index
+            })
+            fig = px.scatter(
+                plot_df, x='PCA 1', y='PCA 2', color=plot_df['Cluster'].astype(str),
+                hover_data=['Index'],
+                title="KMeans Clustering (PCA-reduced data)",
+                labels={'color': 'Cluster'}
+            )
+            # Add centroids
+            for i, (cx, cy) in enumerate(centers):
+                fig.add_scatter(x=[cx], y=[cy], mode='markers', marker=dict(symbol='x', size=15, color='red'),
+                                name=f'Centroid {i}')
+            st.plotly_chart(fig, use_container_width=True)
+
+            # Show cluster sizes
+            cluster_sizes = pd.Series(clusters).value_counts().sort_index()
+            st.write("#### Cluster Sizes:")
+            st.write({f"Cluster {i}": int(size) for i, size in cluster_sizes.items()})
+
+            # 1. Show cluster feature means
+            st.write("#### Cluster Feature Means:")
+            feature_means = pd.DataFrame(X, columns=features).copy()
+            feature_means['Cluster'] = clusters
+            means_table = feature_means.groupby('Cluster').mean()
+            st.dataframe(means_table)
+
+            # 2. Interactive data table for cluster members
+            st.write("#### View Data for a Selected Cluster:")
+            selected_cluster = st.selectbox("Select cluster to view its members", options=sorted(means_table.index))
+            cluster_rows = df.iloc[feature_means[feature_means['Cluster'] == selected_cluster].index]
+            st.dataframe(cluster_rows.head(100))
+            st.caption("Showing first 100 rows of the selected cluster.")
+
+            # 4. Silhouette score and plot
+            st.write("#### Silhouette Score:")
+            sil_score = silhouette_score(X_pca, clusters)
+            st.write(f"Silhouette Score: {sil_score:.3f}")
+            sil_samples = silhouette_samples(X_pca, clusters)
+            sil_df = pd.DataFrame({'Cluster': clusters, 'Silhouette': sil_samples})
+            sil_fig = px.box(sil_df, x='Cluster', y='Silhouette', points='all', title='Silhouette Scores by Cluster')
+            st.plotly_chart(sil_fig, use_container_width=True)
 
     except Exception as e:
         st.error(f"Error processing the CSV file: {str(e)}")
