@@ -1,0 +1,1 @@
+# Scientific Agents Package for CAMEL-based Research Paper Generation 
