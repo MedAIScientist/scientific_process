@@ -2284,6 +2284,438 @@ def main():
                                 for rec in recs:
                                     st.write(f"- {rec}")
 
+            # with tab3:
+            #     st.subheader("🧪 AI-Powered Hypothesis Generation")
+            #
+            #     if 'analysis_results' not in st.session_state:
+            #         st.warning("⚠️ Please run the statistical analysis first in the 'Deep Statistical Analysis' tab.")
+            #     else:
+            #         if st.button("🤖 Generate Enhanced Hypotheses", type="primary"):
+            #             with st.spinner("🧠 AI is analyzing patterns and generating hypotheses..."):
+            #                 # Create enhanced prompt
+            #                 enhanced_prompt = create_pattern_enhanced_gemini_prompt(df,
+            #                                                                         st.session_state.analysis_results)
+            #
+            #                 # Show prompt preview
+            #                 with st.expander("🔍 View Enhanced Prompt (Preview)"):
+            #                     st.text(
+            #                         enhanced_prompt[:2000] + "..." if len(enhanced_prompt) > 2000 else enhanced_prompt)
+            #
+            #                 # Call Gemini API
+            #                 gemini_response = call_gemini_api(enhanced_prompt, api_key)
+            #
+            #                 # Store response
+            #                 st.session_state.gemini_response = gemini_response
+            #
+            #                 # Display response
+            #                 st.markdown("### 🎯 AI-Generated Hypotheses")
+            #                 st.markdown(gemini_response)
+            #
+            #                 st.success("✅ Hypotheses generated successfully!")
+            #
+            #         # Show previous response if available
+            #         if 'gemini_response' in st.session_state:
+            #             st.markdown("### 🎯 Generated Hypotheses")
+            #             st.markdown(st.session_state.gemini_response)
+
+            # with tab3:
+            #     st.subheader("🧪 AI-Powered Hypothesis Generation")
+            #
+            #     if 'analysis_results' not in st.session_state:
+            #         st.warning("⚠️ Please run the statistical analysis first in the 'Deep Statistical Analysis' tab.")
+            #     else:
+            #         if st.button("🤖 Generate Enhanced Hypotheses", type="primary"):
+            #             with st.spinner("🧠 AI is analyzing patterns and generating hypotheses..."):
+            #                 # Create enhanced prompt
+            #                 enhanced_prompt = create_pattern_enhanced_gemini_prompt(df,
+            #                                                                         st.session_state.analysis_results)
+            #
+            #                 # Show prompt preview
+            #                 with st.expander("🔍 View Enhanced Prompt (Preview)"):
+            #                     st.text(
+            #                         enhanced_prompt[:2000] + "..." if len(enhanced_prompt) > 2000 else enhanced_prompt)
+            #
+            #                 # Call Gemini API
+            #                 gemini_response = call_gemini_api(enhanced_prompt, api_key)
+            #
+            #                 # Store response
+            #                 st.session_state.gemini_response = gemini_response
+            #
+            #                 # Display response
+            #                 st.markdown("### 🎯 AI-Generated Hypotheses")
+            #                 st.markdown(gemini_response)
+            #
+            #                 st.success("✅ Hypotheses generated successfully!")
+            #
+            #         # Show previous response if available
+            #         if 'gemini_response' in st.session_state:
+            #             st.markdown("### 🎯 Generated Hypotheses")
+            #             st.markdown(st.session_state.gemini_response)
+            #
+            #             # Add save functionality section
+            #             st.markdown("---")
+            #             st.subheader("💾 Save Analysis Results")
+            #
+            #             col1, col2 = st.columns([2, 1])
+            #
+            #             with col1:
+            #                 # Option to choose what to save
+            #                 save_options = st.multiselect(
+            #                     "Select components to save:",
+            #                     [
+            #                         "Statistical Analysis Results",
+            #                         "AI-Generated Hypotheses",
+            #                         "Dataset Metadata",
+            #                         "Executive Summary",
+            #                         "Data Quality Report"
+            #                     ],
+            #                     default=["Statistical Analysis Results", "AI-Generated Hypotheses"]
+            #                 )
+            #
+            #                 # Custom filename option
+            #                 custom_filename = st.text_input(
+            #                     "Custom filename (optional):",
+            #                     placeholder="my_analysis_results"
+            #                 )
+            #
+            #             with col2:
+            #                 st.markdown("")  # spacing
+            #                 st.markdown("")  # spacing
+            #
+            #                 if st.button("📥 Save to JSON", type="secondary"):
+            #                     try:
+            #                         # Generate the comprehensive report
+            #                         report_generator = ReportGenerator(st.session_state.analysis_results, df)
+            #
+            #                         # Create comprehensive findings dictionary
+            #                         findings_data = {}
+            #
+            #                         if "Dataset Metadata" in save_options:
+            #                             findings_data["dataset_metadata"] = {
+            #                                 "shape": df.shape,
+            #                                 "columns": df.columns.tolist(),
+            #                                 "dtypes": df.dtypes.astype(str).to_dict(),
+            #                                 "memory_usage": df.memory_usage(deep=True).sum(),
+            #                                 "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            #                             }
+            #
+            #                         if "Statistical Analysis Results" in save_options:
+            #                             findings_data["statistical_analysis"] = st.session_state.analysis_results
+            #
+            #                         if "AI-Generated Hypotheses" in save_options:
+            #                             findings_data["ai_hypotheses"] = {
+            #                                 "response": st.session_state.gemini_response,
+            #                                 "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            #                                 "model": "gemini-2.5-flash-preview"
+            #                             }
+            #
+            #                         if "Executive Summary" in save_options:
+            #                             findings_data[
+            #                                 "executive_summary"] = report_generator._generate_executive_summary()
+            #
+            #                         if "Data Quality Report" in save_options:
+            #                             findings_data["data_quality"] = {
+            #                                 "overall_score": report_generator._calculate_data_quality_score(),
+            #                                 "significant_findings": report_generator._extract_significant_findings(),
+            #                                 "outlier_summary": report_generator._summarize_outliers()
+            #                             }
+            #
+            #                         # Generate filename
+            #                         if custom_filename:
+            #                             filename = f"{custom_filename}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            #                         else:
+            #                             filename = f"analysis_findings_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            #
+            #                         # Convert to JSON string
+            #                         json_string = json.dumps(findings_data, indent=2, default=str)
+            #
+            #                         # Create download button
+            #                         st.download_button(
+            #                             label="⬇️ Download JSON Report",
+            #                             data=json_string,
+            #                             file_name=filename,
+            #                             mime="application/json",
+            #                             help="Click to download your complete analysis findings as JSON"
+            #                         )
+            #
+            #                         # Success message with file details
+            #                         st.success(f"✅ Report prepared successfully!")
+            #                         st.info(
+            #                             f"📊 File size: {len(json_string.encode('utf-8'))} bytes\n📁 Components: {len(save_options)} selected")
+            #
+            #                     except Exception as e:
+            #                         st.error(f"❌ Error generating report: {str(e)}")
+            #
+            #             # Preview section
+            #             with st.expander("👁️ Preview JSON Structure"):
+            #                 if save_options:
+            #                     try:
+            #                         # Generate a preview of the JSON structure
+            #                         preview_data = {}
+            #
+            #                         if "Dataset Metadata" in save_options:
+            #                             preview_data[
+            #                                 "dataset_metadata"] = "Dataset information (shape, columns, types, etc.)"
+            #
+            #                         if "Statistical Analysis Results" in save_options:
+            #                             preview_data["statistical_analysis"] = "Complete statistical analysis results"
+            #
+            #                         if "AI-Generated Hypotheses" in save_options:
+            #                             preview_data["ai_hypotheses"] = "AI-generated hypotheses and insights"
+            #
+            #                         if "Executive Summary" in save_options:
+            #                             preview_data["executive_summary"] = "Key findings and recommendations"
+            #
+            #                         if "Data Quality Report" in save_options:
+            #                             preview_data["data_quality"] = "Data quality metrics and assessments"
+            #
+            #                         st.json(preview_data)
+            #
+            #                     except Exception as e:
+            #                         st.error(f"Error generating preview: {str(e)}")
+            #                 else:
+            #                     st.info("Select components above to see preview")
+            #
+            #             # Additional export options
+            #             st.markdown("---")
+            #             st.subheader("📄 Additional Export Options")
+            #
+            #             col3, col4 = st.columns(2)
+            #
+            #             with col3:
+            #                 # Save just the hypotheses as markdown
+            #                 if st.button("📝 Save Hypotheses as Markdown"):
+            #                     markdown_content = f"""# AI-Generated Hypotheses Report
+            # Generated on: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+            #
+            # ## Dataset Overview
+            # - Shape: {df.shape[0]} rows × {df.shape[1]} columns
+            # - Analysis Version: 1.0
+            #
+            # ## AI-Generated Hypotheses
+            # {st.session_state.gemini_response}
+            #
+            # ---
+            # *Generated using Advanced Statistical Analysis Pipeline*
+            # """
+            #
+            #                     st.download_button(
+            #                         label="⬇️ Download Markdown",
+            #                         data=markdown_content,
+            #                         file_name=f"hypotheses_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md",
+            #                         mime="text/markdown"
+            #                     )
+            #
+            #             with col4:
+            #                 # Save executive summary only
+            #                 if st.button("📋 Save Executive Summary"):
+            #                     try:
+            #                         report_generator = ReportGenerator(st.session_state.analysis_results, df)
+            #                         exec_summary = report_generator._generate_executive_summary()
+            #
+            #                         summary_json = json.dumps({
+            #                             "executive_summary": exec_summary,
+            #                             "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            #                             "dataset_shape": df.shape
+            #                         }, indent=2, default=str)
+            #
+            #                         st.download_button(
+            #                             label="⬇️ Download Summary",
+            #                             data=summary_json,
+            #                             file_name=f"executive_summary_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+            #                             mime="application/json"
+            #                         )
+            #
+            #                     except Exception as e:
+            #                         st.error(f"Error generating summary: {str(e)}")
+
+            # Function to parse AI-generated hypotheses into structured JSON
+            def parse_hypotheses_to_json(gemini_response: str) -> dict:
+                """
+                Parse the AI-generated hypotheses text into a structured JSON format
+                """
+                try:
+                    lines = gemini_response.split('\n')
+                    structured_data = {
+                        "executive_summary": "",
+                        "hypotheses": [],
+                        "methodology_recommendations": "",
+                        "bias_considerations": "",
+                        "follow_up_research_directions": ""
+                    }
+
+                    current_hypothesis = {}
+                    current_section = None
+                    current_key = None
+                    buffer_text = ""
+
+                    for line in lines:
+                        line = line.strip()
+
+                        # Skip empty lines
+                        if not line:
+                            continue
+
+                        # Check for main sections
+                        if line.startswith("### EXECUTIVE SUMMARY"):
+                            current_section = "executive_summary"
+                            buffer_text = ""
+                            continue
+                        elif line.startswith("### HYPOTHESIS"):
+                            # Save previous hypothesis if exists
+                            if current_hypothesis:
+                                structured_data["hypotheses"].append(current_hypothesis)
+
+                            # Extract hypothesis number and title
+                            title_match = line.replace("### HYPOTHESIS", "").strip()
+                            current_hypothesis = {
+                                "id": len(structured_data["hypotheses"]) + 1,
+                                "title": title_match,
+                                "statement": "",
+                                "statistical_evidence": "",
+                                "pattern_evidence": "",
+                                "recommended_test": "",
+                                "effect_size": "",
+                                "confounders": "",
+                                "follow_up": ""
+                            }
+                            current_section = "hypothesis"
+                            current_key = None
+                            continue
+                        elif line.startswith("### METHODOLOGY RECOMMENDATIONS"):
+                            # Save last hypothesis
+                            if current_hypothesis:
+                                structured_data["hypotheses"].append(current_hypothesis)
+                                current_hypothesis = {}
+                            current_section = "methodology"
+                            buffer_text = ""
+                            continue
+                        elif line.startswith("### BIAS CONSIDERATIONS"):
+                            current_section = "bias"
+                            buffer_text = ""
+                            continue
+                        elif line.startswith("### FOLLOW-UP RESEARCH DIRECTIONS"):
+                            current_section = "follow_up_directions"
+                            buffer_text = ""
+                            continue
+
+                        # Parse hypothesis components
+                        if current_section == "hypothesis" and current_hypothesis:
+                            if line.startswith("**Statement:**"):
+                                current_key = "statement"
+                                current_hypothesis[current_key] = line.replace("**Statement:**", "").strip()
+                            elif line.startswith("**Statistical Evidence:**"):
+                                current_key = "statistical_evidence"
+                                current_hypothesis[current_key] = line.replace("**Statistical Evidence:**", "").strip()
+                            elif line.startswith("**Pattern Evidence:**"):
+                                current_key = "pattern_evidence"
+                                current_hypothesis[current_key] = line.replace("**Pattern Evidence:**", "").strip()
+                            elif line.startswith("**Recommended Test:**"):
+                                current_key = "recommended_test"
+                                current_hypothesis[current_key] = line.replace("**Recommended Test:**", "").strip()
+                            elif line.startswith("**Effect Size:**"):
+                                current_key = "effect_size"
+                                current_hypothesis[current_key] = line.replace("**Effect Size:**", "").strip()
+                            elif line.startswith("**Confounders:**"):
+                                current_key = "confounders"
+                                current_hypothesis[current_key] = line.replace("**Confounders:**", "").strip()
+                            elif line.startswith("**Follow-up:**"):
+                                current_key = "follow_up"
+                                current_hypothesis[current_key] = line.replace("**Follow-up:**", "").strip()
+                            elif current_key and not line.startswith("**") and not line.startswith("###"):
+                                # Continue previous field
+                                current_hypothesis[current_key] += " " + line
+                            elif not current_key and not line.startswith("**"):
+                                # This might be part of the title or description
+                                current_hypothesis["title"] += " " + line
+
+                        # Parse other sections - accumulate in buffer
+                        elif current_section in ["executive_summary", "methodology", "bias", "follow_up_directions"]:
+                            if not line.startswith("###"):
+                                buffer_text += line + " "
+
+                    # Don't forget the last hypothesis
+                    if current_hypothesis:
+                        structured_data["hypotheses"].append(current_hypothesis)
+
+                    # Set accumulated text for sections
+                    if current_section == "executive_summary":
+                        structured_data["executive_summary"] = buffer_text.strip()
+                    elif current_section == "methodology":
+                        structured_data["methodology_recommendations"] = buffer_text.strip()
+                    elif current_section == "bias":
+                        structured_data["bias_considerations"] = buffer_text.strip()
+                    elif current_section == "follow_up_directions":
+                        structured_data["follow_up_research_directions"] = buffer_text.strip()
+
+                    # Clean up hypothesis fields
+                    for hypothesis in structured_data["hypotheses"]:
+                        for key in hypothesis:
+                            if isinstance(hypothesis[key], str):
+                                hypothesis[key] = hypothesis[key].strip()
+
+                    # If no structured hypotheses were found, try a simpler approach
+                    if not structured_data["hypotheses"]:
+                        # Look for any hypothesis patterns
+                        hypothesis_sections = []
+                        current_hyp_text = ""
+
+                        for line in gemini_response.split('\n'):
+                            if "HYPOTHESIS" in line and (
+                                    "1:" in line or "2:" in line or "3:" in line or "4:" in line or "5:" in line):
+                                if current_hyp_text:
+                                    hypothesis_sections.append(current_hyp_text.strip())
+                                current_hyp_text = line + "\n"
+                            elif current_hyp_text and not line.startswith("###"):
+                                current_hyp_text += line + "\n"
+                            elif line.startswith("### METHODOLOGY") or line.startswith("### BIAS"):
+                                if current_hyp_text:
+                                    hypothesis_sections.append(current_hyp_text.strip())
+                                    current_hyp_text = ""
+                                break
+
+                        if current_hyp_text:
+                            hypothesis_sections.append(current_hyp_text.strip())
+
+                        # Parse each hypothesis section
+                        for i, hyp_text in enumerate(hypothesis_sections):
+                            structured_data["hypotheses"].append({
+                                "id": i + 1,
+                                "title": f"Hypothesis {i + 1}",
+                                "full_text": hyp_text,
+                                "statement": "",
+                                "statistical_evidence": "",
+                                "pattern_evidence": "",
+                                "recommended_test": "",
+                                "effect_size": "",
+                                "confounders": "",
+                                "follow_up": ""
+                            })
+
+                    return structured_data
+
+                except Exception as e:
+                    # Fallback: return basic structure with raw text
+                    return {
+                        "executive_summary": "Error parsing response - see raw text below",
+                        "hypotheses": [{
+                            "id": 1,
+                            "title": "Raw AI Response",
+                            "full_text": gemini_response,
+                            "statement": "Unable to parse structured format",
+                            "statistical_evidence": "",
+                            "pattern_evidence": "",
+                            "recommended_test": "",
+                            "effect_size": "",
+                            "confounders": "",
+                            "follow_up": ""
+                        }],
+                        "methodology_recommendations": "",
+                        "bias_considerations": "",
+                        "follow_up_research_directions": "",
+                        "parsing_error": str(e)
+                    }
+
             with tab3:
                 st.subheader("🧪 AI-Powered Hypothesis Generation")
 
@@ -2318,6 +2750,185 @@ def main():
                         st.markdown("### 🎯 Generated Hypotheses")
                         st.markdown(st.session_state.gemini_response)
 
+                        # Add save functionality section
+                        st.markdown("---")
+                        st.subheader("💾 Save Analysis Results")
+
+                        col1, col2 = st.columns([2, 1])
+
+                        with col1:
+                            # Option to choose what to save
+                            save_options = st.multiselect(
+                                "Select components to save:",
+                                [
+                                    "Statistical Analysis Results",
+                                    "AI-Generated Hypotheses",
+                                    "Dataset Metadata",
+                                    "Executive Summary",
+                                    "Data Quality Report"
+                                ],
+                                default=["Statistical Analysis Results", "AI-Generated Hypotheses"]
+                            )
+
+                            # Custom filename option
+                            custom_filename = st.text_input(
+                                "Custom filename (optional):",
+                                placeholder="my_analysis_results"
+                            )
+
+                        with col2:
+                            st.markdown("")  # spacing
+                            st.markdown("")  # spacing
+
+                            if st.button("📥 Save to JSON", type="secondary"):
+                                try:
+                                    # Generate the comprehensive report
+                                    report_generator = ReportGenerator(st.session_state.analysis_results, df)
+
+                                    # Create comprehensive findings dictionary
+                                    findings_data = {}
+
+                                    if "Dataset Metadata" in save_options:
+                                        findings_data["dataset_metadata"] = {
+                                            "shape": df.shape,
+                                            "columns": df.columns.tolist(),
+                                            "dtypes": df.dtypes.astype(str).to_dict(),
+                                            "memory_usage": df.memory_usage(deep=True).sum(),
+                                            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                                        }
+
+                                    if "Statistical Analysis Results" in save_options:
+                                        findings_data["statistical_analysis"] = st.session_state.analysis_results
+
+                                    if "AI-Generated Hypotheses" in save_options:
+                                        findings_data["ai_hypotheses"] = {
+                                            "response": st.session_state.gemini_response,
+                                            "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                                            "model": "gemini-2.5-flash-preview"
+                                        }
+
+                                    if "Executive Summary" in save_options:
+                                        findings_data[
+                                            "executive_summary"] = report_generator._generate_executive_summary()
+
+                                    if "Data Quality Report" in save_options:
+                                        findings_data["data_quality"] = {
+                                            "overall_score": report_generator._calculate_data_quality_score(),
+                                            "significant_findings": report_generator._extract_significant_findings(),
+                                            "outlier_summary": report_generator._summarize_outliers()
+                                        }
+
+                                    # Generate filename
+                                    if custom_filename:
+                                        filename = f"{custom_filename}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+                                    else:
+                                        filename = f"analysis_findings_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+
+                                    # Convert to JSON string
+                                    json_string = json.dumps(findings_data, indent=2, default=str)
+
+                                    # Create download button
+                                    st.download_button(
+                                        label="⬇️ Download JSON Report",
+                                        data=json_string,
+                                        file_name=filename,
+                                        mime="application/json",
+                                        help="Click to download your complete analysis findings as JSON"
+                                    )
+
+                                    # Success message with file details
+                                    st.success(f"✅ Report prepared successfully!")
+                                    st.info(
+                                        f"📊 File size: {len(json_string.encode('utf-8'))} bytes\n📁 Components: {len(save_options)} selected")
+
+                                except Exception as e:
+                                    st.error(f"❌ Error generating report: {str(e)}")
+
+                        # Preview section
+                        with st.expander("👁️ Preview JSON Structure"):
+                            if save_options:
+                                try:
+                                    # Generate a preview of the JSON structure
+                                    preview_data = {}
+
+                                    if "Dataset Metadata" in save_options:
+                                        preview_data[
+                                            "dataset_metadata"] = "Dataset information (shape, columns, types, etc.)"
+
+                                    if "Statistical Analysis Results" in save_options:
+                                        preview_data["statistical_analysis"] = "Complete statistical analysis results"
+
+                                    if "AI-Generated Hypotheses" in save_options:
+                                        preview_data["ai_hypotheses"] = "AI-generated hypotheses and insights"
+
+                                    if "Executive Summary" in save_options:
+                                        preview_data["executive_summary"] = "Key findings and recommendations"
+
+                                    if "Data Quality Report" in save_options:
+                                        preview_data["data_quality"] = "Data quality metrics and assessments"
+
+                                    st.json(preview_data)
+
+                                except Exception as e:
+                                    st.error(f"Error generating preview: {str(e)}")
+                            else:
+                                st.info("Select components above to see preview")
+
+                        # Additional export options
+                        st.markdown("---")
+                        st.subheader("📄 Additional Export Options")
+
+                        col3, col4 = st.columns(2)
+
+                        with col3:
+                            # Save just the hypotheses as markdown
+                            if st.button("📝 Save Hypotheses as Markdown"):
+                                markdown_content = f"""# AI-Generated Hypotheses Report
+            Generated on: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+
+            ## Dataset Overview
+            - Shape: {df.shape[0]} rows × {df.shape[1]} columns
+            - Analysis Version: 1.0
+
+            ## AI-Generated Hypotheses
+            {st.session_state.gemini_response}
+
+            ---
+            *Generated using Advanced Statistical Analysis Pipeline*
+            """
+
+                                st.download_button(
+                                    label="⬇️ Download Markdown",
+                                    data=markdown_content,
+                                    file_name=f"hypotheses_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md",
+                                    mime="text/markdown"
+                                )
+
+                        with col4:
+                            # Save structured hypotheses
+                            if st.button("🔬 Save Structured Hypotheses"):
+                                try:
+                                    structured_hypotheses = parse_hypotheses_to_json(st.session_state.gemini_response)
+
+                                    hypotheses_json = json.dumps({
+                                        "structured_hypotheses": structured_hypotheses,
+                                        "metadata": {
+                                            "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                                            "dataset_shape": df.shape,
+                                            "total_hypotheses": len(structured_hypotheses.get("hypotheses", [])),
+                                            "model_used": "gemini-2.5-flash-preview"
+                                        }
+                                    }, indent=2, default=str)
+
+                                    st.download_button(
+                                        label="⬇️ Download Structured Hypotheses",
+                                        data=hypotheses_json,
+                                        file_name=f"structured_hypotheses_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+                                        mime="application/json"
+                                    )
+
+                                except Exception as e:
+                                    st.error(f"Error generating structured hypotheses: {str(e)}")
             with tab4:
                 st.subheader("🔬 Statistical Methods Selection")
 
