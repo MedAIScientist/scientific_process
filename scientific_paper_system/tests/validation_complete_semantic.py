@@ -190,7 +190,8 @@ def performance_summary():
             with open(latest_metadata, 'r') as f:
                 metadata = json.load(f)
             
-            print(f"⏱️  Generation duration: {metadata.get('duration_seconds', 0):.1f}s")
+            duration = metadata.get('duration_seconds', 0) or 0
+            print(f"⏱️  Generation duration: {duration:.1f}s")
             print(f"📚 Sources integrated: {metadata.get('literature_sources_count', 0)}")
             print(f"🧠 Hypotheses processed: {metadata.get('hypotheses_count', 0)}")
             print(f"📊 Quality score: {metadata.get('quality_score', 0)}/10")

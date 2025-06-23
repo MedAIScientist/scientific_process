@@ -51,7 +51,8 @@ def check_data_files():
     base_dir = os.path.dirname(__file__)
     required_files = [
         os.path.join('data', 'demo_data.csv'),
-        os.path.join('data', 'hypothesis', 'hypotheses_output.json')
+        os.path.join('data', 'hypothesis', 'structured_hypotheses_3_only.json'),
+        os.path.join('data', 'hypothesis', 'statistical_analysis_report.json')
     ]
     
     missing_files = []
@@ -67,7 +68,8 @@ def check_data_files():
         print("\n⚠️ Missing data files!")
         print("Make sure you have:")
         print("- data/demo_data.csv (your data)")
-        print("- data/hypothesis/hypotheses_output.json (your hypotheses)")
+        print("- data/hypothesis/structured_hypotheses_3_only.json (your hypotheses)")
+        print("- data/hypothesis/statistical_analysis_report.json (statistical analysis)")
         return False
     
     return True
@@ -76,13 +78,15 @@ def check_dependencies():
     """Check dependencies"""
     print("\n📦 Checking dependencies...")
     
-    required_packages = ['reportlab', 'markdown', 'pandas', 'camel']
+    required_packages = ['reportlab', 'markdown', 'pandas', 'camel', 'semanticscholar', 'requests']
     missing = []
     
     for package in required_packages:
         try:
             if package == 'camel':
                 import camel
+            elif package == 'semanticscholar':
+                import semanticscholar
             else:
                 __import__(package)
             print(f"✅ {package}")
@@ -97,6 +101,13 @@ def check_dependencies():
         print(f"pip3 install {' '.join(missing)}")
         return False
     
+    # Check Semantic Scholar configuration
+    try:
+        from config.semantic_scholar_config import setup_semantic_scholar_api_key
+        setup_semantic_scholar_api_key()
+    except Exception as e:
+        print(f"⚠️ Semantic Scholar config warning: {e}")
+    
     return True
 
 async def generate_paper():
@@ -110,8 +121,8 @@ async def generate_paper():
         original_cwd = os.getcwd()
         os.chdir(base_dir)
         
-        # Import and launch generator
-        from scripts.scientific_paper_generator import main as generate_main
+        # Import and launch ENHANCED generator with verified references
+        from scripts.enhanced_scientific_paper_generator import main as generate_main
         
         success = await generate_main()
         
@@ -172,7 +183,8 @@ scientific_paper_system/
 ├── 📊 data/                    # Input data
 │   ├── demo_data.csv           # Your research data
 │   └── hypothesis/             # Hypothesis folder
-│       └── hypotheses_output.json
+│       ├── structured_hypotheses_3_only.json
+│       └── statistical_analysis_report.json
 │
 ├── 🚀 scripts/                 # Generation scripts
 │   ├── generate_scientific_paper.py

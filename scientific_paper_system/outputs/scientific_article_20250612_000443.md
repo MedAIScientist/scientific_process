@@ -6,7 +6,7 @@
 
 **Objective:** To examine the relationships between sociodemographic factors and health outcomes using a cross-sectional analytical approach.
 
-**Methods:** We analyzed data from 8 participants using comprehensive statistical methods. Variables included age, treatment, outcome, satisfaction. Multiple analytical approaches were employed to test predefined hypotheses.
+**Methods:** We analyzed data from 253680 participants using comprehensive statistical methods. Variables included Diabetes_binary, HighBP, HighChol, CholCheck.... Multiple analytical approaches were employed to test predefined hypotheses.
 
 **Results:** Our analysis revealed significant associations between key variables. 10 relevant studies from the literature were integrated to contextualize findings.
 
@@ -28,14 +28,32 @@ Our research was guided by the following hypotheses:
 ## Methods
 
 ### Study Design
-This cross-sectional study analyzed data from 8 participants to examine associations between risk factors and health outcomes.
+This cross-sectional study analyzed data from 253680 participants to examine associations between risk factors and health outcomes.
 
 ### Data Collection
 Data were collected on the following variables:
-- age
-- treatment
-- outcome
-- satisfaction
+- Diabetes_binary
+- HighBP
+- HighChol
+- CholCheck
+- BMI
+- Smoker
+- Stroke
+- HeartDiseaseorAttack
+- PhysActivity
+- Fruits
+- Veggies
+- HvyAlcoholConsump
+- AnyHealthcare
+- NoDocbcCost
+- GenHlth
+- MentHlth
+- PhysHlth
+- DiffWalk
+- Sex
+- Age
+- Education
+- Income
 
 ### Statistical Analysis
 Comprehensive statistical analyses were performed to test the study hypotheses. Descriptive statistics were calculated for all variables, and appropriate inferential statistical tests were applied based on variable types and distributions.
@@ -46,7 +64,7 @@ A systematic search of academic databases was conducted to identify relevant stu
 ## Results
 
 ### Participant Characteristics
-The study included 8 participants. Descriptive statistics revealed important patterns in the data that informed subsequent analyses.
+The study included 253680 participants. Descriptive statistics revealed important patterns in the data that informed subsequent analyses.
 
 ### Primary Analysis
 Analysis of the primary hypotheses revealed several significant findings:
@@ -85,7 +103,7 @@ These findings have several important implications:
 Several limitations should be considered when interpreting these results:
 
 - Cross-sectional design limits causal inference
-- Sample size (8 participants) may limit generalizability
+- Sample size (253680 participants) may limit generalizability
 - Additional variables not measured may influence the observed relationships
 
 ### Future Research
@@ -111,9 +129,9 @@ These results have important implications for clinical practice and public healt
 5. Panagiotis Asaridis, Dimitris Goulimaris (2025). Evaluation of the social impact of small-scale dance festivals: the case of Samos. Discobolul – Physical Education, Sport and Kinetotherapy Journal.
 6. Mahinda Sakalasooriya (2025). Exploring University Choice Factors Among School Leavers in Selected Sri Lankan Districts: A Second-Order Confirmatory Factor Analysis. HUMAN BEHAVIOR, DEVELOPMENT and SOCIETY.
 7. Jose Correa Ibarra, Amelia Crowley, S. Lindros et al. (2025). Innovative Ultrasound-Guided Erector Spinae Plane Nerve Block Model for Training Emergency Medicine Physicians. Journal of Education and Teaching in Emergency Medicine.
-8. Anushka Mehar, Yamini (2025). Integrating demographic insights into menstrual product choices: a study through the lens of Engel–Kollat–Blackwell Model. Health Education.
-9. Sabahat Coşkun, Miraç Kençbesü, Nassaradine Abdoulaye Ahmat (2025). Effect of Peer Education on Health Responsibility, Beliefs, Knowledge, and Practices for Testicular Cancer.. Health Education & Behavior.
-10. Tracy Noerper, Anne Lowery, Geoffrey Wright et al. (2025). Increasing nutrition knowledge and culinary skills in interprofessional healthcare students: an active learning pilot study. BMC Medical Education.
+8. Sabahat Coşkun, Miraç Kençbesü, Nassaradine Abdoulaye Ahmat (2025). Effect of Peer Education on Health Responsibility, Beliefs, Knowledge, and Practices for Testicular Cancer.. Health Education & Behavior.
+9. P. Borkowski, Natalia Borkowska, Shaunak Mangeshkar et al. (2024). Racial and Socioeconomic Determinants of Cardiovascular Health: A Comprehensive Review. Cureus.
+10. Alexander Amigud, D. Pell (2024). A thousand reasons to hate e-learning: a comparative analysis of empirical data and theoretical considerations pertaining to dissatisfaction with e-learning. Interactive Technology and Smart Education.
 
 ## Funding
 This research was supported by institutional research funds.
@@ -127,6 +145,6 @@ Data supporting these findings are available upon reasonable request to the corr
 ---
 
 **Corresponding Author:** research@institution.edu  
-**Received:** June 09, 2025  
-**Accepted:** June 09, 2025  
-**Published:** June 09, 2025
+**Received:** June 12, 2025  
+**Accepted:** June 12, 2025  
+**Published:** June 12, 2025
