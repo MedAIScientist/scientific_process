@@ -1,0 +1,53 @@
+{
+  "structured_hypotheses": {
+    "executive_summary": "",
+    "hypotheses": [
+      {
+        "id": 1,
+        "title": "1: Socioeconomic Factors and Healthcare Access Impact on Diabetes Risk",
+        "statement": "Lower income and education levels, especially when combined with perceived cost barriers to healthcare, are associated with a higher likelihood of diabetes, even after accounting for traditional risk factors like BMI and age.",
+        "statistical_evidence": "The dataset includes `Income`, `Education`, and `NoDocbcCost` (no doctor because of cost), alongside the target `Diabetes_binary` and risk factors like `BMI` and `Age`.",
+        "pattern_evidence": "Socioeconomic disparities in healthcare access and health outcomes are well-documented in epidemiological literature.",
+        "recommended_test": "Logistic regression analysis with Diabetes_binary as outcome, including Income, Education, and NoDocbcCost as primary predictors while controlling for BMI and Age. Perform stratified analysis and interaction testing.",
+        "effect_size": "Expected medium to large effect size, as socioeconomic factors often show substantial associations with chronic disease outcomes.",
+        "confounders": "BMI, Age, Sex, other chronic conditions, lifestyle factors (smoking, physical activity), and geographic factors may confound the relationship.",
+        "follow_up": "This allows investigation into how socioeconomic status and access issues might contribute to diabetes prevalence beyond typical clinical risk factors, potentially due to delayed diagnosis, lack of preventative care, or inability to afford healthy lifestyles/medications."
+      },
+      {
+        "id": 2,
+        "title": "2: Discrepancy Between General and Physical Health Perceptions",
+        "statement": "Individuals who report a significant number of days of poor physical health (`PhysHlth`) but rate their general health (`GenHlth`) as relatively good have a distinct risk profile for diabetes compared to those where these measures align, controlled for age.",
+        "statistical_evidence": "The dataset includes both `GenHlth` (a subjective general rating) and `PhysHlth` (a more specific measure of days with physical limitations). Strong correlation between these variables (0.52) but not perfect alignment.",
+        "pattern_evidence": "Discrepancies between subjective health ratings and specific functional measures may indicate underlying health conditions not fully captured by general assessments.",
+        "recommended_test": "Create a discrepancy score (PhysHlth vs GenHlth) and use logistic regression to predict Diabetes_binary, controlling for Age. Compare risk profiles between aligned vs discrepant groups using stratified analysis.",
+        "effect_size": "Expected small to medium effect size, as the discrepancy may capture subtle but important health status variations.",
+        "confounders": "Age, Sex, BMI, other chronic conditions, and individual differences in health perception and reporting may confound the relationship.",
+        "follow_up": "This hypothesis explores the *discrepancy* between perceived general health and specific physical health limitations as potentially informative for diabetes risk, perhaps indicating underlying chronic conditions not fully captured by the general health rating."
+      },
+      {
+        "id": 3,
+        "title": "3: Mental Health as a Pathway to Physical Health Decline and Diabetes Risk",
+        "statement": "Frequent poor mental health days (`MentHlth`) are associated with increased physical limitations (`DiffWalk`, `PhysHlth`) and reduced engagement in physical activity (`PhysActivity`), forming a cluster of factors that collectively increases the probability of having diabetes, even when controlling for age and sex.",
+        "statistical_evidence": "The dataset includes `MentHlth`, `PhysHlth`, `DiffWalk`, and `PhysActivity`. `MentHlth` shows skewed distribution with significant variation (0-30 days).",
+        "pattern_evidence": "Mental health conditions are known to impact physical functioning and health behaviors, potentially creating cascading effects on chronic disease risk.",
+        "recommended_test": "Structural equation modeling or path analysis to test the hypothesized pathway: MentHlth → (PhysHlth, DiffWalk, PhysActivity) → Diabetes_binary. Use mediation analysis to quantify direct and indirect effects, controlling for Age and Sex.",
+        "effect_size": "Expected medium effect size for the overall pathway, with potentially smaller individual pathway components that combine for a meaningful total effect.",
+        "confounders": "Age, Sex, BMI, socioeconomic status, other chronic conditions, and medication use may confound the relationships in this pathway.",
+        "follow_up": "This hypothesis posits a pathway where poor mental health may negatively impact physical function and activity levels, thereby increasing diabetes risk, exploring interconnected relationships between mental health, physical functioning, and chronic disease outcomes."
+      }
+    ],
+    "methodology_recommendations": "Use multivariate regression models with appropriate controls, consider interaction effects, and employ mediation analysis for pathway testing. Stratified analyses by key demographic variables may reveal important subgroup differences.",
+    "bias_considerations": "Self-reported measures may introduce reporting bias. Cross-sectional design limits causal inference. Selection bias may exist if certain populations are underrepresented in the dataset.",
+    "follow_up_research_directions": "1. **Longitudinal Analysis:** Investigate temporal relationships between socioeconomic factors, mental health, and diabetes onset. 2. **Intervention Studies:** Develop and test interventions targeting identified pathways (healthcare access, mental health support). 3. **Mechanism Exploration:** Investigate biological and behavioral mechanisms linking mental health to diabetes risk through physical functioning pathways."
+  },
+  "metadata": {
+    "generated_at": "2025-06-13 09:41:30",
+    "dataset_shape": [
+      2300,
+      22
+    ],
+    "total_hypotheses": 3,
+    "model_used": "gemini-2.5-flash-preview",
+    "note": "Updated with new hypotheses focusing on socioeconomic factors, health perception discrepancies, and mental-physical health pathways"
+  }
+} 
